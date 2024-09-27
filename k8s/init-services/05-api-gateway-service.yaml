@@ -13,6 +13,6 @@ spec:
     targetPort: 8080
   selector:
     app: api-gateway
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+# type: NodePort
+# status:
+#   loadBalancer: {}

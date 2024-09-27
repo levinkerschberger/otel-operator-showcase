@@ -14,11 +14,14 @@ spec:
   strategy: {}
   template:
     metadata:
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-java: "otel-instrumentation"
       labels:
         app: api-gateway
     spec:
       containers:
-      - image: ${REPOSITORY_PREFIX}/spring-petclinic-cloud-api-gateway:latest
+      - image: nteduardschander/spring-petclinic-cloud-api-gateway:latest
         name: api-gateway
         imagePullPolicy: Always
         livenessProbe:
@@ -39,9 +42,9 @@ spec:
         resources:
           limits:
             memory: 1Gi
-          requests:
-            cpu: 2000m
-            memory: 1Gi
+          # requests:
+          #   cpu: 2000m
+          #   memory: 1Gi
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: kubernetes

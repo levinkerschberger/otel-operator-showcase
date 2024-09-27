@@ -16,9 +16,12 @@ spec:
     metadata:
       labels:
         app: visits-service
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-java: "otel-instrumentation"
     spec:
       containers:
-      - image: ${REPOSITORY_PREFIX}/spring-petclinic-cloud-visits-service:latest
+      - image: nteduardschander/spring-petclinic-cloud-visits-service:latest
         name: visits-service
         imagePullPolicy: Always
         livenessProbe:

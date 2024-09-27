@@ -1,0 +1,31 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: oteld
+spec:
+  mode: daemonset
+  hostNetwork: true
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+    processors:
+    exporters:
+      debug:
+      logging:
+      otlp:
+        endpoint: http://jaeger-collector.jaeger.svc.cluster.local:4317
+        tls:
+          insecure: true
+      otlphttp:
+        endpoint: "https://zke85215.live.dynatrace.com/api/v2/otlp"
+        headers: {"Authorization": "Api-Token dt0c01.ZHB4YYMI3E3CXUPUEVIZXJG4.VJHFIIPKWT3QGKSCOYNVEM7ZMLYC5PIYYVZ2SSP7ICEXLOIRJI2WGZPO252CVXZ4"}
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: []
+          exporters: [logging,otlphttp,otlp,debug]
+

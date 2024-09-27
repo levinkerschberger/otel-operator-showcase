@@ -1,0 +1,17 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: instrumentation
+metadata:
+  name: otel-instrumentation
+spec:
+  java:
+    extensions:
+      - image: nteduardschander/java-otel-extension:latest
+        dir: /extensions
+  resource:
+    addK8sUIDAttributes: true
+  propagators:
+    - tracecontext
+    - baggage
+    - b3
+  sampler:
+    type: always_on
